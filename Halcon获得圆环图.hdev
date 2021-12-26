@@ -1,0 +1,8 @@
+* Halcon获得圆环图
+* by tt1
+select_shape_std (ConnectedRegions, SelectedRegions, 'max_area', 0)  //选最大面积
+gen_contour_region_xld (SelectedRegions, Contours, 'border') 
+fit_circle_contour_xld (Contours, 'ahuber', -1, 0, 0, 3, 2, Row, Column, Radius, StartPhi, EndPhi, PointOrder)  //圆
+gen_circle (CircleO, Row, Column, Radius - 5)   //生成大圆
+gen_circle (CircleI, Row, Column, Radius - 30)   //生成小圆
+difference (CircleO, CircleI, Ring)   //环
